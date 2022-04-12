@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+
+        <!-- All of the lines just below were verbatim pasted from fonts.google.com. Remember how this works re: font weights, etc. -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+        <!-- Note: Mentor said 400, 500, and 700, but 500 wasn't available. -->
+
+        <link rel="stylesheet" href="assets/css/style.css"> <!--always put this line after fonts because of how things load-->
+        <!-- "./" means "from right here". "../" means "go up a level". And, from a site:
+        Here is all you need to know about relative file paths:
+            Starting with “/” returns to the root directory and starts there
+            Starting with “../” moves one directory backwards and starts there
+            Starting with “../../” moves two directories backwards and starts there (and so on…)
+            To move forward, just start with the first subdirectory and keep moving forward -->
+
+        <title>Frontend Mentor | Tip calculator app</title>
+    </head>
+    <body>
+        <div id="app" v-cloak>
+            <header>
+                <ul>
+                    <li class="title-line-1">Spli</li>
+                    <li class="title-line-2">tter</li>
+                </ul>      
+            </header>
+            <main>
+                <form class="bill-form">
+                    <label for="bill">Bill</label>
+                    <span class="for-dollar-sign">
+                        <img src="assets/img/icon-dollar.svg" alt="dollar sign">
+                        <input type="text" v-model="billInputVal" id="bill" name="bill" @input="formatBillInputVal()">
+                    </span>
+                </form>
+                <form class="select-tip-form">
+                    <label for="select-tip-percentage">Select Tip %</label> <!-- QQQ: Should 'select-tip-percentage' be matched as an ID and NAME in the inputs? -->
+                    <input v-for="buttonValue in buttonValues" :key="buttonValue" type="button" :value="buttonValue" class="tip-option tip-button" @click="getDecimalAndSetText($event)">
+                    <input type="text" v-model="customTipInputVal" class="tip-option tip-custom" @click="onFocus()" @input="formatCustomTipInputVal()" @change="getDecNumAndSetText()"> <!-- QQQ: Is there a better way to do this click event? -->
+                </form>
+                <form class="num-of-people-form">
+                    <label for="num-of-people">Number of People</label>
+                    <label for="num-of-people" id="zero-not-allowed">{{ noZeroAlert }}</label>
+                    <span class="for-person-icon">
+                        <img src="assets/img/icon-person.svg" alt="person icon">
+                        <input type="number" v-model="numOfPeopleInputVal" id="num-of-people" name="num-of-people" min="1" max="25" @input="renderNoZeroAlert()">
+                    </span>
+                </form>
+                <section class="each-person-owes">
+                    <ul>
+                        <li>Tip Amount / person</li>
+                        <li>$<span class="tip-per-person">{{ tipPerPersonStr }}</span></li>
+                    </ul>
+                    <ul>
+                        <li>Total / person</li>
+                        <li>$<span class="total-per-person">{{ totalPerPersonStr }}</span></li>
+                    </ul>
+                    <button class="reset-btn" @click="reset()">Reset</button>
+                </section>
+            </main>
+            <footer>
+                <p class="attribution">
+                    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+                    Coded by <a href="#">Ben Boorstein</a>.
+                </p>
+            </footer>
+        </div>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="./assets/js/app.js"></script>
+    </body>
+</html>
