@@ -49,27 +49,35 @@ let app = Vue.createApp({
             this.tipPerPersonStr = (+this.billInputVal * customTipAsDecNum / +this.numOfPeopleInputVal).toFixed(2)
             this.totalPerPersonStr = ((+this.billInputVal * customTipAsDecNum / +this.numOfPeopleInputVal) + (+this.billInputVal / +this.numOfPeopleInputVal)).toFixed(2)
         },
-        //////////////// LEFT OFF HERE - QQQ: WHY DOESN'T THIS WORK FOR THE '0' BUT WORKS FOR THE ''? ANSWER: BECAUSE 'this.numOfPeopleInputVal' in the function below is behaving as a NUMBER instead of a STRING...and, looking at all the relevant code, I can't figure out why it's behaving as a number here. Can you see why? (I know the easy fix is to just use "==" instead of "===", but I don't want to do that. I want clarity instead, and to do it properly.)
-        // creating notification if user enters '0' into '#num-of-people' input
+        // creating notification if user enters '0' or '' into '#num-of-people' input
         renderNoZeroAlert() {
-            this.numOfPeopleInputVal === '0' || this.numOfPeopleInputVal === '' ? this.noZeroAlert = `Can't be zero ` : this.noZeroAlert = ''
+            +this.numOfPeopleInputVal === 0 ? this.noZeroAlert = `Can't be zero ` : this.noZeroAlert = ''
         },
-        ////////////////////////////////////////////////
-
-
         reset() {
             this.tipPerPersonStr = '0.00'
             this.totalPerPersonStr = '0.00'
         }
+    },
+    /////////////////////////////////////////////////////
+    mounted() {
+        this.$refs.bill.focus() // DOESN'T work // // remember this depends on the 'bill' input's 'ref="bill"' (in the template) // https://michaelnthiessen.com/set-focus-on-input-vue
+        console.log('mounted') // works
+        console.log(this.$refs.bill) // works
     }
+    /////////////////////////////////////////////////////
 })
 
 app.mount('#app')
 
 
 
-/////////////// QQQ: I can't figure out how to Vue-ize this functionality. I'm assuming it'll have something to do with the "mounted" lifecycle hook, but using this line "document.getElementById..." in "mounted" doesn't work. (And yes, I know using vanilla JS DOM manipulation should not be necessary at all in Vue.) So I know it's a small thing, but I'm looking for the proper way to do this in Vue.
-window.onload = function() {
-    document.getElementById('bill').focus()
-}
-///////////////////////////////////////////////
+
+
+
+
+
+// ///////////////////////////////////////////////
+// window.onload = function() {
+//     document.getElementById('bill').focus()
+// }
+// ///////////////////////////////////////////////

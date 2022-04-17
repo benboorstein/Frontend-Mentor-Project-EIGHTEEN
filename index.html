@@ -36,7 +36,7 @@
                     <label for="bill">Bill</label>
                     <span class="for-dollar-sign">
                         <img src="assets/img/icon-dollar.svg" alt="dollar sign">
-                        <input type="text" v-model="billInputVal" id="bill" name="bill" @input="formatBillInputVal()">
+                        <input type="text" v-model="billInputVal"         ref="bill"        id="bill" name="bill" @input="formatBillInputVal()">
                     </span>
                 </form>
                 <form class="select-tip-form">
