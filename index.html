@@ -36,20 +36,20 @@
                     <label for="bill">Bill</label>
                     <span class="for-dollar-sign">
                         <img src="assets/img/icon-dollar.svg" alt="dollar sign">
-                        <input type="text" v-model="billInputVal"         ref="bill"        id="bill" name="bill" @input="formatBillInputVal()">
+                        <input type="text" v-model="billInputVal" ref="bill" id="bill" name="bill" @input="formatBillInputVal()" @change="setTotalPerPersonText()">
                     </span>
                 </form>
                 <form class="select-tip-form">
-                    <label for="select-tip-percentage">Select Tip %</label> <!-- QQQ: Should 'select-tip-percentage' be matched as an ID and NAME in the inputs? -->
-                    <input v-for="buttonValue in buttonValues" :key="buttonValue" type="button" :value="buttonValue" class="tip-option tip-button" @click="getDecimalAndSetText($event)">
-                    <input type="text" v-model="customTipInputVal" class="tip-option tip-custom" @click="onFocus()" @input="formatCustomTipInputVal()" @change="getDecNumAndSetText()"> <!-- QQQ: Is there a better way to do this click event? -->
+                    <label for="select-tip-percentage">Select Tip %</label>
+                    <input v-for="tipButtonValue in tipButtonValues" :key="tipButtonValue" type="button" :value="tipButtonValue" class="tip-option tip-button" @click="handleTipButtons($event)">
+                    <input type="text" v-model="customTipInputVal" class="tip-option tip-custom" @click="clearValOnFocus()" @input="formatCustomTipInputVal()" @change="handleCustomTipInputVal()">
                 </form>
                 <form class="num-of-people-form">
                     <label for="num-of-people">Number of People</label>
                     <label for="num-of-people" id="zero-not-allowed">{{ noZeroAlert }}</label>
                     <span class="for-person-icon">
                         <img src="assets/img/icon-person.svg" alt="person icon">
-                        <input type="number" v-model="numOfPeopleInputVal" id="num-of-people" name="num-of-people" min="1" max="25" @input="renderNoZeroAlert()">
+                        <input type="number" v-model="numOfPeopleInputVal" id="num-of-people" name="num-of-people" min="1" max="25" @input="renderNoZeroAlert()" @change="renderWhatEachPersonOwes()">
                     </span>
                 </form>
                 <section class="each-person-owes">
