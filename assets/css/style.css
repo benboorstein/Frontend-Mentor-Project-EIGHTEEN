@@ -1,7 +1,4 @@
-/*
-"Be aware of the many CSS selectors available: https://www.w3schools.com/cssref/css_selectors.asp.
-That way, you can intuitively pick the right one for any context."
-*/
+/* CSS selectors available: https://www.w3schools.com/cssref/css_selectors.asp. */
 
 /* For device widths: https://viewportsizer.com/devices/. */
 
@@ -123,7 +120,7 @@ footer
 }
 
 .attribution a {
-    color: hsl(228, 45%, 44%); /*hsl(hue, saturation, lightness)*/
+    color: hsl(228, 45%, 44%);
 }
 
 
